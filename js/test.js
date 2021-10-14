@@ -91,6 +91,7 @@ let searchApi=document.getElementById("searchApi");
 let searchResult=document.getElementById("searchResult");
 let currentSearchInput=document.getElementById("currentSearchInput");
 let apiLink=document.getElementsByClassName("link");
+let alertMovieInput=document.getElementById("alertMovieInput");
 
 
 let data=[];
@@ -110,9 +111,15 @@ for(let i=0; i<apiLink.length; i++){
 }
 async function search(klma){
     let fetchData= await fetch(`https://api.themoviedb.org/3/search/movie?api_key=e633cc0382e6f1221d9516bc5730034a&language=en-US&query=${klma}&page=1&include_adult=false`);
+
+    if(fetchData.status!=200){
+        alertMovieInput.classList.remove("d-none");
+    
+    }
     data=await fetchData.json();
     data=data.results;
     display()
+    
     
 }
 searchApi.addEventListener("keyup",function(){
